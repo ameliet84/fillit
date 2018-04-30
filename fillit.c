@@ -55,7 +55,6 @@ int fill_tab(char **table, t_piece piece[26], int k, int len)
 		{	
 			if( test_piece(table, piece[k], i, j) == 1)
 			{
-				place_piece(table, piece[k], i, j);
 				if(fill_tab(table, piece, k+1, len) == 1)
 					return 1;
 				remove_piece(table, piece[k], i, j);

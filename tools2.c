@@ -251,16 +251,6 @@ int skip_cols(char **tab, int i)
 
 int test_piece(char **table, t_piece piece, int i, int j)
 {
-/*	printf("piece coord1x = %d, i = %d\n", piece.coord1x, i);
-	printf("piece coord1y = %d, j = %d\n", piece.coord1y, j);
-	printf("piece coord2x = %d, i = %d\n", piece.coord2x, i);
-	printf("piece coord2y = %d, j = %d\n", piece.coord2y, j);
-	printf("piece coord3x = %d, i = %d\n", piece.coord3x, i);
-	printf("piece coord3y = %d, j = %d\n", piece.coord3y, j);
-	printf("piece coord4x = %d, i = %d\n", piece.coord4x, i);
-	printf("piece coord4y = %d, j = %d\n", piece.coord4y, j);
-	printf("maxi = %d et maxj = %d\n", piece.maxi, piece.maxj );
-*/
 	if( table[piece.coord1x+i][piece.coord1y + j] != '.')
 		return 0;
 	if( table[piece.coord2x+i][piece.coord2y + j] != '.')
@@ -269,6 +259,13 @@ int test_piece(char **table, t_piece piece, int i, int j)
 		return 0;
 	if( table[piece.coord4x+i][piece.coord4y + j] != '.')
 		return 0;
+	char a;
+
+	a = piece.letter;
+	table[piece.coord1x+i][piece.coord1y + j] = a;
+	table[piece.coord2x+i][piece.coord2y + j] = a;
+	table[piece.coord3x+i][piece.coord3y + j] = a;
+	table[piece.coord4x+i][piece.coord4y + j] = a;
 	return 1;
 }
 
@@ -304,13 +301,3 @@ void remove_piece(char **table, t_piece piece, int i, int j)
 	table[piece.coord4x+i][piece.coord4y + j] = '.';
 }
 
-void place_piece(char **table, t_piece piece, int i, int j)
-{
-	char a;
-
-	a = piece.letter;
-	table[piece.coord1x+i][piece.coord1y + j] = a;
-	table[piece.coord2x+i][piece.coord2y + j] = a;
-	table[piece.coord3x+i][piece.coord3y + j] = a;
-	table[piece.coord4x+i][piece.coord4y + j] = a;
-}
