@@ -1,19 +1,14 @@
 #include "fillit.h"
 
-int read_trios(t_piece piece[26], char **tab, int fd)
+int read_trios2(t_piece piece[26], char **tab, char str[20], int k)
 {
-	char str[20];
-	int k;
 	int i;
 	int n;
 	int j;
 
-	k = 0;
-	while(read(fd, str, 20) > 0)
-	{
-		n =0;
-		i = -1;
-		j = 0;
+	n =0;
+	i = -1;
+	j = 0;
 		while(++i<19)
 		{
 			if(((i+1)%5 == 0 && str[i] != '\n' )|| ((i+1)%5 != 0 && str[i] != '.' && str[i] != '#'))
@@ -27,10 +22,22 @@ int read_trios(t_piece piece[26], char **tab, int fd)
 				++n;
 			tab[(i-j)/4][(i-j)%4] = str[i];
 		}
-		if(n != 4 || test_trio(tab) == 0 || (read(fd, str, 1) >0 && str[0] != '\n'))
+		if(n != 4 || test_trio(tab) == 0 )
 			return 0;
 		treat_trio2(tab, &piece[k]);
 		piece[k].letter = 'A' + k;
+		return 1;
+}
+int read_trios(t_piece piece[26], char **tab, int fd)
+{
+	char str[20];
+	int k;
+
+	k = 0;
+	while(read(fd, str, 20) > 0)
+	{
+		if(read_trios2(piece, tab, str, k) == 0 || (read(fd, str, 1) >0 && str[0] != '\n'))
+			return 0;
 		++k;
 	}
 	return k;
